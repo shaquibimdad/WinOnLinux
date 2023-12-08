@@ -98,6 +98,8 @@ then install nvidia drivers via geforce experience app in vm and reboot
 
 ```
 /configuring ivshmem or kvmfr for igpu on host
+https://looking-glass.io/docs/B6/module/#  //for kvmfrsetup
+
  
 looking glass config for very low latency output
 
