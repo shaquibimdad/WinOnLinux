@@ -118,7 +118,7 @@ https://github.com/asmtron/rdpwrap/blob/master/binary-download.md
 
 
 
-
+content of this gist https://gist.github.com/Ruakij/dd40b3d7cacf5d0f196d1116771b6e42 below
 
 Looking-glass kvmfr setup Arch
 ===
