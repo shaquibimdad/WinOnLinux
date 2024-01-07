@@ -166,5 +166,53 @@ cgroup_device_acl = [
     "/dev/ptmx", "/dev/kvm",
     "/dev/kvmfr0"
 ]
+```
 
+```
+enabling samba service
+install samba package 'pacman -S samba'
+copy below config to /etc/samba/smb.conf
+
+#---------------------------------------
+
+[global]
+
+# workgroup = NT-Domain-Name or Workgroup-Name, eg: MIDEARTH
+   workgroup = MYGROUP
+
+# server string is the equivalent of the NT Description field
+   server string = Samba Server
+
+# this tells Samba to use a separate log file for each machine
+# that connects
+;   log file = /usr/local/samba/var/log.%m
+
+# Put a capping on the size of the log files (in Kb).
+   max log size = 50
+
+# Windows Internet Name Serving Support Section:
+# WINS Support - Tells the NMBD component of Samba to enable it's WINS Server
+   wins support = yes
+
+# sticky bit set on it to prevent abuse. Obviously this could be extended to
+# as many users as required.
+[myshare]
+   comment = Holy Storage
+   path = /media/shaquib
+   public = no
+   writable = yes
+   browsable = yes
+
+
+#---------------------------------------------------------------
+
+then generate sambapasswd for current user
+sudo smbpasswd -a shaquibimdad
+
+finally eanble samba smb service
+sudo systemctl enable --now smb.service
+
+check your current ip in network in virt-manager
+
+and connect with that in windows by mapping a new network device 
 ```
