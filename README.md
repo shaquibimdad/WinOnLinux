@@ -123,7 +123,48 @@ https://github.com/asmtron/rdpwrap/blob/master/binary-download.md
 
 ```
 
-
+```
 //setup-kvmfr
 https://gist.github.com/Ruakij/dd40b3d7cacf5d0f196d1116771b6e42
 
+cd into cloned looking_glass_client dir and go to module directory
+
+now open terminal in that dir and execute make command (manual method)
+and do sudo modprobe kvmfr static_size_mb=32
+
+or using dkms just execute below command
+sudo dkms install "."
+
+
+then create a udev rule
+sudo cat > /etc/udev/rules.d/99-kvmfr.rules <<EOF
+SUBSYSTEM=="kvmfr", OWNER="libvirt-qemu", GROUP="kvm", MODE="0666"
+EOF
+
+then setup auto loading during boot
+
+Setup auto-load of module
+
+sudo cat > /etc/modules-load.d/kvmfr.conf <<EOF
+# KVMFR Looking Glass module
+kvmfr
+EOF
+
+sudo cat > /etc/modprobe.d/kvmfr.conf <<EOF
+#KVMFR Looking Glass module
+options kvmfr static_size_mb=32
+EOF
+
+
+finally open /etc/libvirt/qemu.conf
+
+and add /dev/kvmfr0 to this section
+
+cgroup_device_acl = [
+    "/dev/null", "/dev/full", "/dev/zero",
+    "/dev/random", "/dev/urandom",
+    "/dev/ptmx", "/dev/kvm",
+    "/dev/kvmfr0"
+]
+
+```
